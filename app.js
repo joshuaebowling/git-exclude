@@ -11,18 +11,20 @@ util = require('util');
 wrench = require('wrench');
 
 
-format = 'git rm --cached -r %s';
+format = 'git rm --cached %s';
 onRead = function(fileNames) {
 	var prunedFiles, strOutput;
 
 	prunedFiles = [];
 	_.each(fileNames, function(name, i) {
-	     var skip = _str.contains(name, '.git');
-	     if(!skip) prunedFiles.push(name);
+	    var isFile, isGit;
+	    isGit = _str.contains(name, '.git');
+     	isFile = fs.lstatSync(flags.get('folder') + '/' + name).isFile();
+	    if(!isGit && isFile) prunedFiles.push(name);
 	});
 	strOutput = util.format(flags.get('template'), prunedFiles.join(' '));
 	fs.writeFile(flags.get('output'), strOutput, function() {
-		console.log('Complete');
+		console.log('Complete', prunedFiles);
 	});	
 };
 
