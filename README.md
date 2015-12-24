@@ -7,3 +7,9 @@
 ###Run 
 `node ./app` (append flags as needed)
 ### automatically excludes `.git` contents to prevent errors
+
+### Test Run
+`node app --folder ./ --output ./test-run.txt --dont-exclude .dont-exclude`
+
+After it completes, open `test-run.txt` and and search for `app.js`, you should not find it because that filename appears in the `.dont-exclude` file.
+
