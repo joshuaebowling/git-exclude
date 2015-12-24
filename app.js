@@ -25,7 +25,6 @@ onRead = function(fileNames) {
 	filesAfterDifference = _.difference(prunedFiles, filesExclusions);
 	strOutput = util.format(flags.get('template'), filesAfterDifference.join(' '));
 	fs.writeFile(flags.get('output'), strOutput, function() {
-//		console.log(_.intersection(prunedFiles, filesExclusions));
 	});	
 };
 
